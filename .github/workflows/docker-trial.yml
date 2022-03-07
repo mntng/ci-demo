@@ -9,6 +9,7 @@ jobs:
       - uses: cypress-io/github-action@v2
         with:
           browser: chrome
+          start: yarn start
           config-file: cypress.json
           spec: cypress/integration/demo/*
       - uses: actions/upload-artifact@v2
