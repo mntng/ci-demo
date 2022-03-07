@@ -1,5 +1,7 @@
 name: End-to-end tests
-on: [push]
+on: 
+  push:
+    branches: [ master ]
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
@@ -29,6 +31,7 @@ jobs:
           # group: Tests on Node v${{ matrix.node }}
           # cache-key: node-v${{ matrix.node }}-on-${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }}
           start: yarn start
+          ### https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037 ###
           command-prefix: "--"
           config-file: cypress.json
           spec: cypress/integration/demo/**/*
