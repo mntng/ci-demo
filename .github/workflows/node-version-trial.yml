@@ -21,9 +21,9 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
-          record: true
-          group: Tests on Node v${{ matrix.node }}
-          cache-key: node-v${{ matrix.node }}-on-${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }}
+          # record: true
+          # group: Tests on Node v${{ matrix.node }}
+          # cache-key: node-v${{ matrix.node }}-on-${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }}
           start: yarn start
           config-file: cypress.json
           spec: cypress/integration/demo/**/*
