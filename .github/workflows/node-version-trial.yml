@@ -19,7 +19,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.17.0 # but you can do 12-16
-          cache: 'yarn'
       # run Cypress tests and record them under the same run
       # associated with commit SHA and just give a different group name
       - name: Cypress run
@@ -30,5 +29,6 @@ jobs:
           # group: Tests on Node v${{ matrix.node }}
           # cache-key: node-v${{ matrix.node }}-on-${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }}
           start: yarn start
+          command-prefix: "--"
           config-file: cypress.json
           spec: cypress/integration/demo/**/*
