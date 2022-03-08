@@ -72,12 +72,14 @@ jobs:
           node-version: 14.17.0
           # caching yarn depenedencies: https://stackoverflow.com/questions/61010294/how-to-cache-yarn-packages-in-github-actions/62244232#62244232
           cache: 'yarn'
-      - name: Cypress install
-        uses: cypress-io/github-action@v2
-        with:
-          # Disable running of tests within install job
-          runTests: false
-          build: yarn build
+      # - name: Cypress install
+      #   uses: cypress-io/github-action@v2
+      #   with:
+      #     # Disable running of tests within install job
+      #     runTests: false
+      #     build: yarn build
+      - name: Yarn install deps
+        run: yarn
 
   ui-chrome-tests:
     runs-on: ubuntu-20.04
@@ -91,13 +93,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
       # - name: Download the build folders
       #   uses: actions/download-artifact@v2
       #   with:
       #     name: build
       #     path: build
-
       - name: 'UI Tests - Chrome'
         uses: cypress-io/github-action@v2
         with:
