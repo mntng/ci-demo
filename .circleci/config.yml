@@ -26,10 +26,8 @@ workflows:
       #  1. Install Cypress
       #  2. Validate types
       #  3. Run server unit-tests
-      - cypress/install:
       # Run E2E tests in Chrome
       - cypress/run:
-          requires:
           browser: chrome
           config-file: cypress.json
           spec: cypress/integration/demo/**/*
