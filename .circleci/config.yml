@@ -38,7 +38,7 @@ workflows:
                 - circleci-project-setup
           executor: with-chrome-and-firefox
           wait-on: 'http://localhost:3000'
-          # command-prefix: "--"
+          command-prefix: yarn
           start: yarn start
           # record: true
           # parallel: true
