@@ -29,17 +29,20 @@ workflows:
       - cypress/install:
           yarn: true
           executor: with-chrome-and-firefox
-          build: yarn run build
       # Run E2E tests in Chrome
       - cypress/run:
           requires:
             - cypress/install
           browser: chrome
+          config-file: cypress.json
           spec: cypress/integration/demo/**/*
+          filters:
+            branches:
+              only:
+                - circleci-project-setup
           executor: with-chrome-and-firefox
-          wait-on: yarn wait-on http://localhost:3000
+          wait-on: 'http://localhost:3000'
           # command-prefix: "--"
-          yarn: true
           start: yarn start
           # record: true
           # parallel: true
