@@ -47,7 +47,10 @@ workflows:
           # group: "UI - Chrome"
           # post-steps:
           #   - report-coverage
-
+      - release:
+          requires:
+            - cypress/run
+          run: 'echo "Tests Pass"'
       # # Run E2E tests in Chrome with mobile device viewport
       # - cypress/run:
       #     name: "UI Tests - Chrome - Mobile"
