@@ -8,7 +8,7 @@ jobs:
     # let's make sure our "app" works on several versions of Node
     strategy:
       matrix:
-        node: [14.17.0]
+        node: [ 14.17.0 ]
     name: E2E on Node v${{ matrix.node }}
     steps:
       - name: Checkout
@@ -24,10 +24,14 @@ jobs:
             key: ${{ runner.os }}-yarn-dep-${{ hashFiles('**/yarn.lock') }}
             restore-keys: |
                 ${{ runner.os }}-yarn-dep-
+      - name: Get Node version
+        id: current-node-version
+        run: echo "::set-output name=node-ver::$(node -v)"
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{ steps.current-node-version.outputs.node-ver }}
+          # node-version: ${{ matrix.node }}
           # caching yarn depenedencies: https://stackoverflow.com/questions/61010294/how-to-cache-yarn-packages-in-github-actions/62244232#62244232
           cache: 'yarn'
       - name: Yarn install deps
