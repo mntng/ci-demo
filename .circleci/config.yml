@@ -47,7 +47,7 @@ workflows:
           # group: "UI - Chrome"
           # post-steps:
           #   - report-coverage
-      - release:
+      - cypress/post-action:
           requires:
             - cypress/run
           run: 'echo "Tests Pass"'
