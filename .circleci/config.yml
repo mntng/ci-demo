@@ -30,11 +30,12 @@ workflows:
           name: "Setup Linux"
           yarn: true
           executor: with-chrome-and-firefox
-          build: "yarn build"
-
+          build: "yarn run build"
       # Run E2E tests in Chrome
       - cypress/run:
           name: "UI Tests - Chrome"
+          requires:
+            - cypress/install
           browser: chrome
           spec: cypress/integration/demo/**/*
           executor: with-chrome-and-firefox
