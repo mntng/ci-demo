@@ -29,6 +29,7 @@ workflows:
       - cypress/install:
           yarn: true
           executor: with-chrome-and-firefox
+          install-command: yarn
       # Run E2E tests in Chrome
       - cypress/run:
           requires:
