@@ -32,8 +32,6 @@ jobs:
           cache: 'yarn'
       - name: Yarn install deps
         run: yarn
-      - name: Yarn start
-        run: yarn start
       # run Cypress tests and record them under the same run
       # associated with commit SHA and just give a different group name
       - name: Cypress run
@@ -44,6 +42,7 @@ jobs:
           # group: Tests on Node v${{ matrix.node }}
           # cache-key: node-v${{ matrix.node }}-on-${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }}
           ### https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037 ###
+          start: yarn start
           command-prefix: "--"
           config-file: cypress.json
           spec: cypress/integration/demo/**/*
