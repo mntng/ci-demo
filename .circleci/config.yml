@@ -27,13 +27,11 @@ workflows:
       #  2. Validate types
       #  3. Run server unit-tests
       - cypress/install:
-          name: "Setup Linux"
           yarn: true
           executor: with-chrome-and-firefox
-          build: "yarn run build"
+          build: 'yarn run build'
       # Run E2E tests in Chrome
       - cypress/run:
-          name: "UI Tests - Chrome"
           requires:
             - cypress/install
           browser: chrome
@@ -48,8 +46,6 @@ workflows:
           # parallelism: 5
           # ci-build-id: ${CIRCLE_SHA1:0:8}
           # group: "UI - Chrome"
-          requires:
-            - Setup Linux
           # post-steps:
           #   - report-coverage
 
