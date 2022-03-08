@@ -29,7 +29,7 @@ workflows:
       - cypress/install:
           yarn: true
           executor: with-chrome-and-firefox
-          build: 'yarn run build'
+          build: yarn run build
       # Run E2E tests in Chrome
       - cypress/run:
           requires:
@@ -37,8 +37,8 @@ workflows:
           browser: chrome
           spec: cypress/integration/demo/**/*
           executor: with-chrome-and-firefox
-          wait-on: "http://localhost:3000"
-          command-prefix: "--"
+          wait-on: yarn wait-on http://localhost:3000
+          # command-prefix: "--"
           yarn: true
           start: yarn start
           # record: true
