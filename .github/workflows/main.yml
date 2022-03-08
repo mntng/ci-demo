@@ -72,41 +72,49 @@ jobs:
           node-version: 14.17.0
           # caching yarn depenedencies: https://stackoverflow.com/questions/61010294/how-to-cache-yarn-packages-in-github-actions/62244232#62244232
           cache: 'yarn'
+      - name: Yarn install deps
+        run: yarn
+      - name: 'UI Tests - Chrome'
+        uses: cypress-io/github-action@v2
+        with:
+          start: yarn start
+          command-prefix: "--"
+          browser: chrome
+          config-file: cypress.json
+          spec: cypress/integration/demo/**/*
       # - name: Cypress install
       #   uses: cypress-io/github-action@v2
       #   with:
       #     # Disable running of tests within install job
       #     runTests: false
       #     build: yarn build
-      - name: Yarn install deps
-        run: yarn
 
-  ui-chrome-tests:
-    runs-on: ubuntu-20.04
-    container: cypress/browsers:node14.17.0-chrome91-ff89
-    needs: install
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     # run copies of the current job in parallel
-    #     containers: [1, 2, 3, 4, 5]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      # - name: Download the build folders
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: build
-      #     path: build
-      - name: 'UI Tests - Chrome'
-        uses: cypress-io/github-action@v2
-        with:
-          # we have already installed all dependencies above
-          install: false
-          start: yarn start
-          command-prefix: "--"
-          # wait-on: 'http://localhost:3000'
-          # wait-on-timeout: 120
-          browser: chrome
-          config-file: cypress.json
-          spec: cypress/integration/demo/**/*
+  # ui-chrome-tests:
+  #   runs-on: ubuntu-20.04
+  #   container: cypress/browsers:node14.17.0-chrome91-ff89
+  #   needs: install
+  #   # strategy:
+  #   #   fail-fast: false
+  #   #   matrix:
+  #   #     # run copies of the current job in parallel
+  #   #     containers: [1, 2, 3, 4, 5]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     # - name: Download the build folders
+  #     #   uses: actions/download-artifact@v2
+  #     #   with:
+  #     #     name: build
+  #     #     path: build
+  #     - name: 'UI Tests - Chrome'
+  #       uses: cypress-io/github-action@v2
+  #       with:
+  #         # we have already installed all dependencies above
+  #         install: false
+  #         start: yarn start
+  #         command-prefix: "--"
+  #         # wait-on: 'http://localhost:3000'
+  #         # wait-on-timeout: 120
+  #         browser: chrome
+  #         config-file: cypress.json
+  #         spec: cypress/integration/demo/**/*
