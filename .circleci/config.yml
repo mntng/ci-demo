@@ -27,12 +27,9 @@ workflows:
       #  2. Validate types
       #  3. Run server unit-tests
       - cypress/install:
-          executor: with-chrome-and-firefox
-          install-command: 'yarn'
       # Run E2E tests in Chrome
       - cypress/run:
           requires:
-            - cypress/install
           browser: chrome
           config-file: cypress.json
           spec: cypress/integration/demo/**/*
