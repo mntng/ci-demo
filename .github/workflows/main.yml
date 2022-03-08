@@ -105,8 +105,8 @@ jobs:
           install: false
           start: yarn start
           command-prefix: "--"
-          wait-on: 'http://localhost:3000'
-          wait-on-timeout: 120
+          # wait-on: 'http://localhost:3000'
+          # wait-on-timeout: 120
           browser: chrome
           config-file: cypress.json
           spec: cypress/integration/demo/**/*
