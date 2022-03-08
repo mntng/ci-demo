@@ -11,16 +11,27 @@ jobs:
         node: [14.17.0]
     name: E2E on Node v${{ matrix.node }}
     steps:
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 14.17.0 # but you can do 12-16
+          node-version: ${{ matrix.node }}
+      - name: Get yarn cache directory path
+        id: yarn-dep-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Setup Yarn dep cache
+        uses: actions/cache@v2
+        id: yarn-dep-cache
+        with:
+            path: ${{ steps.yarn-dep-cache-dir-path.outputs.dir }}
+            key: ${{ runner.os }}-yarn-dep-${{ hashFiles('**/yarn.lock') }}
+            restore-keys: |
+                ${{ runner.os }}-yarn-dep-
+      - name: Yarn install deps
+        run: |
+            yarn install --frozen-lockfile
+        if: steps.yarn-dep-cache.outputs.cache-hit != 'true'
       # run Cypress tests and record them under the same run
       # associated with commit SHA and just give a different group name
       - name: Cypress run
