@@ -28,6 +28,7 @@ workflows:
       #  3. Run server unit-tests
       # Run E2E tests in Chrome
       - cypress/run:
+          yarn: true
           browser: chrome
           config-file: cypress.json
           spec: cypress/integration/demo/**/*
